@@ -45,18 +45,18 @@ export function Header() {
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8">
-            <a
-              href="#features"
+            <Link
+              href="/features"
               className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 relative hover-glow"
             >
               Features
-            </a>
-            <a
-              href="#how-it-works"
+            </Link>
+            <Link
+              href="/how-it-works"
               className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 relative hover-glow"
             >
               How It Works
-            </a>
+            </Link>
             <Link
               href="/pricing"
               className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 relative hover-glow"
@@ -130,11 +130,11 @@ export function Header() {
             isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
           }`}
         >
-          <div className="mt-4 pb-4 border-t border-white/10">
-            <nav className="flex flex-col space-y-4 mt-4">
+          <div className="mt-4 pb-4 border-t border-white/10 glass-card backdrop-blur-xl bg-background/95 rounded-lg mx-2">
+            <nav className="flex flex-col space-y-4 mt-4 px-4">
               {[
-                { name: "Features", href: "#features" },
-                { name: "How It Works", href: "#how-it-works" },
+                { name: "Features", href: "/features" },
+                { name: "How It Works", href: "/how-it-works" },
                 { name: "Pricing", href: "/pricing" },
                 { name: "About", href: "/about" },
                 { name: "Chat", href: "/chat" },
