@@ -57,18 +57,24 @@ export function Header() {
             >
               How It Works
             </a>
-            <a
-              href="#pricing"
+            <Link
+              href="/pricing"
               className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 relative hover-glow"
             >
               Pricing
-            </a>
-            <a
-              href="#about"
+            </Link>
+            <Link
+              href="/about"
               className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 relative hover-glow"
             >
               About
-            </a>
+            </Link>
+            <Link
+              href="/chat"
+              className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 relative hover-glow"
+            >
+              Chat
+            </Link>
           </nav>
 
           <div className="hidden md:flex items-center space-x-4">
@@ -126,15 +132,21 @@ export function Header() {
         >
           <div className="mt-4 pb-4 border-t border-white/10">
             <nav className="flex flex-col space-y-4 mt-4">
-              {["Features", "How It Works", "Pricing", "About"].map((item, index) => (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase().replace(" ", "-")}`}
+              {[
+                { name: "Features", href: "#features" },
+                { name: "How It Works", href: "#how-it-works" },
+                { name: "Pricing", href: "/pricing" },
+                { name: "About", href: "/about" },
+                { name: "Chat", href: "/chat" },
+              ].map((item, index) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
                   className="text-foreground/80 hover:text-primary transition-all duration-300 hover:translate-x-2 animate-slide-in-left"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  {item}
-                </a>
+                  {item.name}
+                </Link>
               ))}
               <div className="flex flex-col space-y-2 pt-4 border-t border-white/10">
                 {user ? (
