@@ -2,13 +2,17 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
-import { AuthForm } from "@/components/auth/auth-form"
 import { Menu, X } from "lucide-react"
+import { useAuth } from "@/contexts/auth-context"
+import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+
+  const { user, signOut } = useAuth()
+  const router = useRouter()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,6 +22,11 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  const handleSignOut = async () => {
+    await signOut()
+    router.push("/")
+  }
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -26,14 +35,14 @@ export function Header() {
     >
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2 hover-lift cursor-pointer">
+          <Link href="/" className="flex items-center space-x-2 hover-lift cursor-pointer">
             <div className="w-8 h-8 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center animate-glow-pulse">
               <span className="text-white font-bold text-sm">CC</span>
             </div>
             <span className="text-xl font-serif font-bold bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
               CollabConnect
             </span>
-          </div>
+          </Link>
 
           <nav className="hidden md:flex items-center space-x-8">
             <a
@@ -63,30 +72,41 @@ export function Header() {
           </nav>
 
           <div className="hidden md:flex items-center space-x-4">
-            <Dialog>
-              <DialogTrigger asChild>
+            {user ? (
+              <div className="flex items-center space-x-4">
                 <Button
                   variant="ghost"
-                  className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 hover-glow"
+                  onClick={() => router.push("/dashboard")}
+                  className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 btn-hover-glow"
                 >
-                  Sign In
+                  Dashboard
                 </Button>
-              </DialogTrigger>
-              <DialogContent className="glass-card border-white/20 max-w-md modal-content">
-                <AuthForm />
-              </DialogContent>
-            </Dialog>
+                <Button
+                  variant="outline"
+                  onClick={handleSignOut}
+                  className="glass border-border/50 btn-hover-glow transition-all duration-300 bg-transparent"
+                >
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
+              <>
+                <Link href="/login">
+                  <Button
+                    variant="ghost"
+                    className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 btn-hover-glow relative"
+                  >
+                    Sign In
+                  </Button>
+                </Link>
 
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button className="neon-glow bg-gradient-to-r from-primary to-accent hover:from-primary/80 hover:to-accent/80 transition-all duration-300 hover:scale-105">
-                  Get Started
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="glass-card border-white/20 max-w-md modal-content">
-                <AuthForm defaultTab="signup" />
-              </DialogContent>
-            </Dialog>
+                <Link href="/login">
+                  <Button className="neon-glow bg-gradient-to-r from-primary to-accent hover:from-primary/80 hover:to-accent/80 btn-hover-glow transition-all duration-300">
+                    Get Started
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
 
           <Button
@@ -117,26 +137,37 @@ export function Header() {
                 </a>
               ))}
               <div className="flex flex-col space-y-2 pt-4 border-t border-white/10">
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button variant="ghost" className="justify-start hover-lift">
-                      Sign In
+                {user ? (
+                  <>
+                    <Button
+                      variant="ghost"
+                      onClick={() => router.push("/dashboard")}
+                      className="justify-start btn-hover-glow"
+                    >
+                      Dashboard
                     </Button>
-                  </DialogTrigger>
-                  <DialogContent className="glass-card border-white/20 max-w-md modal-content">
-                    <AuthForm />
-                  </DialogContent>
-                </Dialog>
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button className="neon-glow bg-gradient-to-r from-primary to-accent hover-lift">
-                      Get Started
+                    <Button
+                      variant="outline"
+                      onClick={handleSignOut}
+                      className="justify-start glass border-border/50 btn-hover-glow bg-transparent"
+                    >
+                      Sign Out
                     </Button>
-                  </DialogTrigger>
-                  <DialogContent className="glass-card border-white/20 max-w-md modal-content">
-                    <AuthForm defaultTab="signup" />
-                  </DialogContent>
-                </Dialog>
+                  </>
+                ) : (
+                  <>
+                    <Link href="/login">
+                      <Button variant="ghost" className="justify-start btn-hover-glow w-full">
+                        Sign In
+                      </Button>
+                    </Link>
+                    <Link href="/login">
+                      <Button className="neon-glow bg-gradient-to-r from-primary to-accent btn-hover-glow w-full">
+                        Get Started
+                      </Button>
+                    </Link>
+                  </>
+                )}
               </div>
             </nav>
           </div>
