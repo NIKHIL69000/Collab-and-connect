@@ -72,10 +72,10 @@ export default function PricingPage() {
               <span className="text-sm font-medium">Choose Your Plan</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-serif font-bold mb-6 bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
-              Simple, Transparent Pricing
+              Subscription Plans
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Start for free and scale as you grow. No hidden fees, no surprises.
+              Choose the perfect subscription plan for your needs. Start for free and scale as you grow.
             </p>
           </div>
 
