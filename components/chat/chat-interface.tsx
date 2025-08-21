@@ -76,7 +76,7 @@ export function ChatInterface() {
     }
   }
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault()
       handleSendMessage()
@@ -228,7 +228,11 @@ export function ChatInterface() {
             <ScrollArea className="flex-1 p-4">
               <div className="space-y-4">
                 {messages.map((message) => (
-                  <MessageBubble key={message.id} message={message} isOwn={message.senderId === "current-user"} />
+                  <MessageBubble
+                    key={message.id}
+                    message={message}
+                    isOwn={message.senderId === (user?.id ?? "") || message.senderId === "current-user"}
+                  />
                 ))}
                 <div ref={messagesEndRef} />
               </div>
@@ -245,7 +249,7 @@ export function ChatInterface() {
                     placeholder="Type a message..."
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
-                    onKeyPress={handleKeyPress}
+                    onKeyDown={handleKeyPress}
                     className="bg-black/50 border-purple-500/30 text-white pr-12"
                     disabled={isSending}
                   />
