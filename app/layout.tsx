@@ -23,12 +23,16 @@ export const metadata: Metadata = {
   description: "Connect influencers with brands for seamless collaborations",
   generator: "v0.app",
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/logo.png", sizes: "32x32", type: "image/png" },
+    ],
     shortcut: "/favicon.ico",
-    apple: "/logo.png",
+    apple: [{ url: "/logo.png", sizes: "180x180", type: "image/png" }],
   },
   viewport: "width=device-width, initial-scale=1",
   themeColor: "#1a1a1a",
+  manifest: "/site.webmanifest",
 }
 
 export default function RootLayout({
