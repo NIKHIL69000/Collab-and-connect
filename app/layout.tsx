@@ -41,8 +41,14 @@ html {
         `}</style>
       </head>
       <body className={`${workSans.variable} ${openSans.variable} antialiased`}>
-        <AuthProvider>{children}</AuthProvider>
+        <ErrorBoundary>
+          <AuthProvider>{children}</AuthProvider>
+        </ErrorBoundary>
       </body>
     </html>
   )
+}
+
+function ErrorBoundary({ children }: { children: React.ReactNode }) {
+  return <div className="min-h-screen">{children}</div>
 }

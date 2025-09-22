@@ -8,12 +8,12 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Send, Paperclip, Smile, MoreVertical, Phone, Video, Search } from "lucide-react"
+import { Send, Paperclip, Smile, MoreVertical, Phone, Video, Search, AlertCircle } from "lucide-react"
 import { type Conversation, type Message, chatService } from "@/lib/chat"
 import { useAuth } from "@/contexts/auth-context"
 
 export function ChatInterface() {
-  const { user } = useAuth()
+  const { user, isAuthenticated } = useAuth()
   const [conversations, setConversations] = useState<Conversation[]>([])
   const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null)
   const [messages, setMessages] = useState<Message[]>([])
@@ -21,11 +21,16 @@ export function ChatInterface() {
   const [isLoading, setIsLoading] = useState(true)
   const [isSending, setIsSending] = useState(false)
   const [searchTerm, setSearchTerm] = useState("")
+  const [error, setError] = useState<string | null>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    loadConversations()
-  }, [])
+    if (isAuthenticated && user) {
+      loadConversations()
+    } else {
+      setIsLoading(false)
+    }
+  }, [isAuthenticated, user])
 
   useEffect(() => {
     if (selectedConversation) {
@@ -39,6 +44,7 @@ export function ChatInterface() {
 
   const loadConversations = async () => {
     try {
+      setError(null)
       const convs = await chatService.getConversations()
       setConversations(convs)
       if (convs.length > 0 && !selectedConversation) {
@@ -46,6 +52,7 @@ export function ChatInterface() {
       }
     } catch (error) {
       console.error("Failed to load conversations:", error)
+      setError("Failed to load conversations. Please try again.")
     } finally {
       setIsLoading(false)
     }
@@ -53,24 +60,28 @@ export function ChatInterface() {
 
   const loadMessages = async (conversationId: string) => {
     try {
+      setError(null)
       const msgs = await chatService.getMessages(conversationId)
       setMessages(msgs)
       await chatService.markAsRead(conversationId)
     } catch (error) {
       console.error("Failed to load messages:", error)
+      setError("Failed to load messages. Please try again.")
     }
   }
 
   const handleSendMessage = async () => {
-    if (!newMessage.trim() || !selectedConversation || isSending) return
+    if (!newMessage.trim() || !selectedConversation || isSending || !user) return
 
     setIsSending(true)
     try {
+      setError(null)
       const message = await chatService.sendMessage(selectedConversation.id, newMessage.trim())
       setMessages((prev) => [...prev, message])
       setNewMessage("")
     } catch (error) {
       console.error("Failed to send message:", error)
+      setError("Failed to send message. Please try again.")
     } finally {
       setIsSending(false)
     }
@@ -108,10 +119,47 @@ export function ChatInterface() {
     return otherParticipant?.userName?.charAt(0).toUpperCase() || "?"
   }
 
+  if (!isAuthenticated) {
+    return (
+      <div className="flex items-center justify-center h-96">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <AlertCircle className="w-8 h-8 text-white" />
+          </div>
+          <h3 className="text-xl font-semibold text-white mb-2">Authentication Required</h3>
+          <p className="text-white/60">Please sign in to access the chat interface</p>
+        </div>
+      </div>
+    )
+  }
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-96">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500"></div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-96">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <AlertCircle className="w-8 h-8 text-white" />
+          </div>
+          <h3 className="text-xl font-semibold text-white mb-2">Something went wrong</h3>
+          <p className="text-white/60 mb-4">{error}</p>
+          <Button
+            onClick={() => {
+              setError(null)
+              loadConversations()
+            }}
+            className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+          >
+            Try Again
+          </Button>
+        </div>
       </div>
     )
   }
@@ -136,55 +184,61 @@ export function ChatInterface() {
         {/* Conversations List */}
         <ScrollArea className="flex-1">
           <div className="p-2">
-            {filteredConversations.map((conversation) => (
-              <div
-                key={conversation.id}
-                onClick={() => setSelectedConversation(conversation)}
-                className={`p-3 rounded-lg cursor-pointer transition-all hover:bg-purple-500/10 ${
-                  selectedConversation?.id === conversation.id ? "bg-purple-500/20" : ""
-                }`}
-              >
-                <div className="flex items-center space-x-3">
-                  <div className="relative">
-                    <Avatar className="w-12 h-12">
-                      <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white font-semibold">
-                        {getConversationAvatar(conversation)}
-                      </AvatarFallback>
-                    </Avatar>
-                    {conversation.participants.some((p) => p.isOnline && p.userId !== user?.id) && (
-                      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-black rounded-full"></div>
-                    )}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-semibold text-white truncate">{getConversationName(conversation)}</h4>
-                      <div className="flex items-center space-x-1">
-                        {conversation.unreadCount > 0 && (
-                          <Badge className="bg-purple-500 text-white text-xs px-2 py-1 min-w-[20px] h-5 flex items-center justify-center">
-                            {conversation.unreadCount}
-                          </Badge>
-                        )}
-                        <span className="text-xs text-white/50">
-                          {conversation.lastMessage &&
-                            new Date(conversation.lastMessage.timestamp).toLocaleTimeString([], {
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            })}
-                        </span>
-                      </div>
+            {filteredConversations.length === 0 ? (
+              <div className="text-center py-8">
+                <p className="text-white/60">No conversations found</p>
+              </div>
+            ) : (
+              filteredConversations.map((conversation) => (
+                <div
+                  key={conversation.id}
+                  onClick={() => setSelectedConversation(conversation)}
+                  className={`p-3 rounded-lg cursor-pointer transition-all hover:bg-purple-500/10 ${
+                    selectedConversation?.id === conversation.id ? "bg-purple-500/20" : ""
+                  }`}
+                >
+                  <div className="flex items-center space-x-3">
+                    <div className="relative">
+                      <Avatar className="w-12 h-12">
+                        <AvatarFallback className="bg-gradient-to-br from-purple-500 to-pink-500 text-white font-semibold">
+                          {getConversationAvatar(conversation)}
+                        </AvatarFallback>
+                      </Avatar>
+                      {conversation.participants.some((p) => p.isOnline && p.userId !== user?.id) && (
+                        <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-black rounded-full"></div>
+                      )}
                     </div>
-                    <p className="text-sm text-white/70 truncate mt-1">
-                      {conversation.lastMessage?.content || "No messages yet"}
-                    </p>
-                    {conversation.type === "campaign" && (
-                      <Badge variant="outline" className="border-blue-500/50 text-blue-300 text-xs mt-1">
-                        Campaign
-                      </Badge>
-                    )}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between">
+                        <h4 className="font-semibold text-white truncate">{getConversationName(conversation)}</h4>
+                        <div className="flex items-center space-x-1">
+                          {conversation.unreadCount > 0 && (
+                            <Badge className="bg-purple-500 text-white text-xs px-2 py-1 min-w-[20px] h-5 flex items-center justify-center">
+                              {conversation.unreadCount}
+                            </Badge>
+                          )}
+                          <span className="text-xs text-white/50">
+                            {conversation.lastMessage &&
+                              new Date(conversation.lastMessage.timestamp).toLocaleTimeString([], {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })}
+                          </span>
+                        </div>
+                      </div>
+                      <p className="text-sm text-white/70 truncate mt-1">
+                        {conversation.lastMessage?.content || "No messages yet"}
+                      </p>
+                      {conversation.type === "campaign" && (
+                        <Badge variant="outline" className="border-blue-500/50 text-blue-300 text-xs mt-1">
+                          Campaign
+                        </Badge>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </ScrollArea>
       </div>
@@ -227,13 +281,19 @@ export function ChatInterface() {
             {/* Messages Area */}
             <ScrollArea className="flex-1 p-4">
               <div className="space-y-4">
-                {messages.map((message) => (
-                  <MessageBubble
-                    key={message.id}
-                    message={message}
-                    isOwn={message.senderId === (user?.id ?? "") || message.senderId === "current-user"}
-                  />
-                ))}
+                {messages.length === 0 ? (
+                  <div className="text-center py-8">
+                    <p className="text-white/60">No messages yet. Start the conversation!</p>
+                  </div>
+                ) : (
+                  messages.map((message) => (
+                    <MessageBubble
+                      key={message.id}
+                      message={message}
+                      isOwn={message.senderId === user?.id || message.senderId === "current-user"}
+                    />
+                  ))
+                )}
                 <div ref={messagesEndRef} />
               </div>
             </ScrollArea>

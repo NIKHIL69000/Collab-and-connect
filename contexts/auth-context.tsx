@@ -19,9 +19,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     isLoading: true,
     isAuthenticated: false,
   })
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    // Check for existing session on mount
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!mounted) return
+
     const checkAuth = async () => {
       try {
         const user = await authService.getCurrentUser()
@@ -31,6 +37,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           isAuthenticated: !!user,
         })
       } catch (error) {
+        console.error("Auth check failed:", error)
         setAuthState({
           user: null,
           isLoading: false,
@@ -40,7 +47,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     checkAuth()
-  }, [])
+  }, [mounted])
 
   const signUp = async (email: string, password: string, name: string, role: "influencer" | "brand") => {
     setAuthState((prev) => ({ ...prev, isLoading: true }))
@@ -82,7 +89,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         isAuthenticated: false,
       })
     } catch (error) {
-      setAuthState((prev) => ({ ...prev, isLoading: false }))
+      console.error("Sign out failed:", error)
+      setAuthState({
+        user: null,
+        isLoading: false,
+        isAuthenticated: false,
+      })
       throw error
     }
   }
