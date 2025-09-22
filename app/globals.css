@@ -118,35 +118,232 @@
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-    /* Added glassmorphism backdrop blur effect */
-    backdrop-filter: blur(10px);
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden; /* Prevent horizontal scroll */
   }
 
-  /* Added custom glassmorphism utility classes */
+  body {
+    @apply bg-background text-foreground;
+    backdrop-filter: blur(10px);
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    min-height: 100vh;
+    min-height: 100dvh; /* Dynamic viewport height for mobile */
+  }
+
+  .text-responsive-xs {
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
+  }
+  .text-responsive-sm {
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+  }
+  .text-responsive-base {
+    font-size: clamp(1rem, 3vw, 1.125rem);
+  }
+  .text-responsive-lg {
+    font-size: clamp(1.125rem, 3.5vw, 1.25rem);
+  }
+  .text-responsive-xl {
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
+  }
+  .text-responsive-2xl {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+  .text-responsive-3xl {
+    font-size: clamp(1.875rem, 6vw, 2.5rem);
+  }
+  .text-responsive-4xl {
+    font-size: clamp(2.25rem, 7vw, 3rem);
+  }
+  .text-responsive-5xl {
+    font-size: clamp(3rem, 8vw, 4rem);
+  }
+  .text-responsive-6xl {
+    font-size: clamp(3.75rem, 10vw, 5rem);
+  }
+  .text-responsive-7xl {
+    font-size: clamp(4.5rem, 12vw, 6rem);
+  }
+
   .glass {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    will-change: transform; /* Optimize for animations */
   }
 
   .glass-card {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    will-change: transform;
   }
 
-  /* Added neon glow effects */
   .neon-glow {
     box-shadow: 0 0 20px rgba(107, 92, 232, 0.3);
+    will-change: box-shadow;
   }
 
   .neon-glow-pink {
     box-shadow: 0 0 20px rgba(255, 61, 127, 0.3);
+    will-change: box-shadow;
   }
 
   .neon-glow-blue {
     box-shadow: 0 0 20px rgba(59, 184, 245, 0.3);
+    will-change: box-shadow;
+  }
+
+  .focus-visible:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  .grid-responsive-1 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .grid-responsive-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .grid-responsive-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-hover-glow {
+    transition: all 0.3s ease;
+    will-change: box-shadow, transform;
+  }
+
+  .btn-hover-glow:hover {
+    box-shadow: 0 0 25px rgba(107, 92, 232, 0.4);
+    transform: translateY(-1px);
+  }
+
+  .hover-glow {
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .hover-glow::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, var(--primary), var(--accent));
+    opacity: 0;
+    z-index: -1;
+    border-radius: inherit;
+    transition: opacity 0.3s ease;
+  }
+
+  .hover-glow:hover::after {
+    opacity: 0.1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-float,
+    .animate-pulse,
+    .animate-glow-pulse,
+    .animate-slide-in-left {
+      animation: none;
+    }
+
+    .hover-lift:hover,
+    .btn-hover-glow:hover {
+      transform: none;
+    }
+  }
+
+  .particles {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .particle {
+    position: absolute;
+    background: linear-gradient(45deg, var(--primary), var(--accent));
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: float-up linear infinite;
+  }
+
+  @keyframes float-up {
+    0% {
+      transform: translateY(100vh) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.6;
+    }
+    90% {
+      opacity: 0.6;
+    }
+    100% {
+      transform: translateY(-100px) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes animate-float {
+    0%,
+    100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    33% {
+      transform: translateY(-10px) rotate(1deg);
+    }
+    66% {
+      transform: translateY(5px) rotate(-1deg);
+    }
+  }
+
+  @keyframes animate-glow-pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 20px rgba(107, 92, 232, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 30px rgba(107, 92, 232, 0.6);
+    }
+  }
+
+  @keyframes animate-slide-in-left {
+    0% {
+      transform: translateX(-20px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-float {
+    animation: animate-float 6s ease-in-out infinite;
+  }
+  .animate-glow-pulse {
+    animation: animate-glow-pulse 2s ease-in-out infinite;
+  }
+  .animate-slide-in-left {
+    animation: animate-slide-in-left 0.5s ease-out forwards;
   }
 }

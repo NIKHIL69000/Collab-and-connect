@@ -6,6 +6,7 @@ import { Menu, X, User } from "lucide-react"
 import { useAuth } from "@/contexts/auth-context"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import Image from "next/image"
 import { UserSidebar } from "./user-sidebar"
 
 export function Header() {
@@ -43,9 +44,16 @@ export function Header() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-transparent">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-2 hover-lift cursor-pointer">
-              <div className="w-8 h-8 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center animate-glow-pulse">
-                <span className="text-white font-bold text-sm">CC</span>
+            <Link href="/" className="flex items-center space-x-3 hover-lift cursor-pointer">
+              <div className="relative w-10 h-10">
+                <Image
+                  src="/logo.png"
+                  alt="CollabConnect Logo"
+                  width={40}
+                  height={40}
+                  className="object-contain"
+                  priority
+                />
               </div>
               <span className="text-xl font-serif font-bold bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
                 CollabConnect
@@ -67,73 +75,80 @@ export function Header() {
       >
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-2 hover-lift cursor-pointer">
-              <div className="w-8 h-8 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center animate-glow-pulse">
-                <span className="text-white font-bold text-sm">CC</span>
+            <Link href="/" className="flex items-center space-x-3 hover-lift cursor-pointer">
+              <div className="relative w-10 h-10">
+                <Image
+                  src="/logo.png"
+                  alt="CollabConnect Logo"
+                  width={40}
+                  height={40}
+                  className="object-contain hover:scale-110 transition-transform duration-300"
+                  priority
+                />
               </div>
               <span className="text-xl font-serif font-bold bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
                 CollabConnect
               </span>
             </Link>
 
-            <nav className="hidden md:flex items-center space-x-8">
+            <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
               <Link
                 href="/features"
-                className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 relative hover-glow"
+                className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 relative hover-glow text-sm xl:text-base"
               >
                 Features
               </Link>
               <Link
                 href="/how-it-works"
-                className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 relative hover-glow"
+                className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 relative hover-glow text-sm xl:text-base"
               >
                 How It Works
               </Link>
               <Link
                 href="/pricing"
-                className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 relative hover-glow"
+                className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 relative hover-glow text-sm xl:text-base"
               >
                 Subscription
               </Link>
               <Link
                 href="/about"
-                className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 relative hover-glow"
+                className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 relative hover-glow text-sm xl:text-base"
               >
                 About
               </Link>
               <Link
                 href="/chat"
-                className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 relative hover-glow"
+                className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 relative hover-glow text-sm xl:text-base"
               >
                 Chat
               </Link>
             </nav>
 
-            <div className="hidden md:flex items-center space-x-4">
+            <div className="hidden lg:flex items-center space-x-3 xl:space-x-4">
               {isAuthenticated && user ? (
                 <Button
                   variant="ghost"
                   onClick={() => setIsSidebarOpen(true)}
-                  className="flex items-center space-x-2 text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 btn-hover-glow"
+                  className="flex items-center space-x-2 text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 btn-hover-glow min-h-[44px] px-3 xl:px-4"
                 >
                   <div className="w-8 h-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center">
                     <User className="h-4 w-4 text-white" />
                   </div>
-                  <span>{user.name}</span>
+                  <span className="text-sm xl:text-base">{user.name}</span>
                 </Button>
               ) : (
                 <>
                   <Link href="/login">
                     <Button
                       variant="ghost"
-                      className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 btn-hover-glow relative"
+                      className="text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 btn-hover-glow relative min-h-[44px] px-4 xl:px-6 text-sm xl:text-base"
                     >
                       Sign In
                     </Button>
                   </Link>
 
                   <Link href="/login">
-                    <Button className="neon-glow bg-gradient-to-r from-primary to-accent hover:from-primary/80 hover:to-accent/80 btn-hover-glow transition-all duration-300">
+                    <Button className="neon-glow bg-gradient-to-r from-primary to-accent hover:from-primary/80 hover:to-accent/80 btn-hover-glow transition-all duration-300 min-h-[44px] px-4 xl:px-6 text-sm xl:text-base">
                       Get Started
                     </Button>
                   </Link>
@@ -144,7 +159,7 @@ export function Header() {
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden transition-all duration-300 hover:scale-110 hover:rotate-90"
+              className="lg:hidden transition-all duration-300 hover:scale-110 hover:rotate-90 min-h-[44px] min-w-[44px]"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -152,7 +167,7 @@ export function Header() {
           </div>
 
           <div
-            className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${
+            className={`lg:hidden overflow-hidden transition-all duration-500 ease-in-out ${
               isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
             }`}
           >
@@ -168,7 +183,7 @@ export function Header() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="text-foreground/80 hover:text-primary transition-all duration-300 hover:translate-x-2 animate-slide-in-left"
+                    className="text-foreground/80 hover:text-primary transition-all duration-300 hover:translate-x-2 animate-slide-in-left py-2 min-h-[44px] flex items-center"
                     style={{ animationDelay: `${index * 0.1}s` }}
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -183,7 +198,7 @@ export function Header() {
                         setIsSidebarOpen(true)
                         setIsMenuOpen(false)
                       }}
-                      className="justify-start btn-hover-glow"
+                      className="justify-start btn-hover-glow min-h-[44px]"
                     >
                       <User className="h-4 w-4 mr-2" />
                       Account Menu
@@ -193,7 +208,7 @@ export function Header() {
                       <Link href="/login">
                         <Button
                           variant="ghost"
-                          className="justify-start btn-hover-glow w-full"
+                          className="justify-start btn-hover-glow w-full min-h-[44px]"
                           onClick={() => setIsMenuOpen(false)}
                         >
                           Sign In
@@ -201,7 +216,7 @@ export function Header() {
                       </Link>
                       <Link href="/login">
                         <Button
-                          className="neon-glow bg-gradient-to-r from-primary to-accent btn-hover-glow w-full"
+                          className="neon-glow bg-gradient-to-r from-primary to-accent btn-hover-glow w-full min-h-[44px]"
                           onClick={() => setIsMenuOpen(false)}
                         >
                           Get Started

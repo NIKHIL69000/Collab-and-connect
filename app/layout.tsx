@@ -22,6 +22,13 @@ export const metadata: Metadata = {
   title: "CollabConnect - Influencer Brand Collaboration Platform",
   description: "Connect influencers with brands for seamless collaborations",
   generator: "v0.app",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/logo.png",
+  },
+  viewport: "width=device-width, initial-scale=1",
+  themeColor: "#1a1a1a",
 }
 
 export default function RootLayout({
