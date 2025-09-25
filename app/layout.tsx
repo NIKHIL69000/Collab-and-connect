@@ -33,6 +33,10 @@ export const metadata: Metadata = {
   viewport: "width=device-width, initial-scale=1",
   themeColor: "#1a1a1a",
   manifest: "/site.webmanifest",
+  other: {
+    "msapplication-TileColor": "#1a1a1a",
+    "msapplication-config": "/browserconfig.xml",
+  },
 }
 
 export default function RootLayout({
@@ -41,17 +45,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark">
-      <head>
-        <style>{`
-html {
-  font-family: ${openSans.style.fontFamily};
-  --font-sans: ${openSans.variable};
-  --font-serif: ${workSans.variable};
-}
-        `}</style>
-      </head>
-      <body className={`${workSans.variable} ${openSans.variable} antialiased`}>
+    <html lang="en" className={`dark ${workSans.variable} ${openSans.variable}`}>
+      <body className="antialiased font-sans">
         <ErrorBoundary>
           <AuthProvider>{children}</AuthProvider>
         </ErrorBoundary>

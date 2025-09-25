@@ -44,20 +44,17 @@ export function Header() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-transparent">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-3 hover-lift cursor-pointer">
-              <div className="relative w-10 h-10">
+            <Link href="/" className="flex items-center gap-3 hover-lift cursor-pointer">
+              <div className="relative w-12 h-12 md:w-14 md:h-14">
                 <Image
-                  src="/logo.png"
-                  alt="CollabConnect Logo"
-                  width={40}
-                  height={40}
+                  src="/logo-clean.png"
+                  alt="Collab & Connect Logo"
+                  width={56}
+                  height={56}
                   className="object-contain"
                   priority
                 />
               </div>
-              <span className="text-xl font-serif font-bold bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
-                CollabConnect
-              </span>
             </Link>
             <div className="w-32 h-10"></div> {/* Placeholder to prevent layout shift */}
           </div>
@@ -75,20 +72,17 @@ export function Header() {
       >
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-3 hover-lift cursor-pointer">
-              <div className="relative w-10 h-10">
+            <Link href="/" className="flex items-center gap-3 hover-lift cursor-pointer">
+              <div className="relative w-12 h-12 md:w-14 md:h-14">
                 <Image
-                  src="/logo.png"
-                  alt="CollabConnect Logo"
-                  width={40}
-                  height={40}
+                  src="/logo-clean.png"
+                  alt="Collab & Connect Logo"
+                  width={56}
+                  height={56}
                   className="object-contain hover:scale-110 transition-transform duration-300"
                   priority
                 />
               </div>
-              <span className="text-xl font-serif font-bold bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
-                CollabConnect
-              </span>
             </Link>
 
             <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
@@ -132,7 +126,7 @@ export function Header() {
                   className="flex items-center space-x-2 text-foreground/80 hover:text-primary transition-all duration-300 hover:scale-105 btn-hover-glow min-h-[44px] px-3 xl:px-4"
                 >
                   <div className="w-8 h-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center">
-                    <User className="h-4 w-4 text-white" />
+                    <User className="h-5 w-5 text-white" />
                   </div>
                   <span className="text-sm xl:text-base">{user.name}</span>
                 </Button>
