@@ -45,16 +45,19 @@ export function Header() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-3 hover-lift cursor-pointer">
-              <div className="relative w-12 h-12 md:w-14 md:h-14">
+              <div className="relative w-10 h-10 md:w-12 md:h-12">
                 <Image
-                  src="/logo-clean.png"
-                  alt="Collab & Connect Logo"
-                  width={56}
-                  height={56}
+                  src="/logo-cc.png"
+                  alt="CollabConnect Logo"
+                  width={48}
+                  height={48}
                   className="object-contain"
                   priority
                 />
               </div>
+              <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                CollabConnect
+              </span>
             </Link>
             <div className="w-32 h-10"></div> {/* Placeholder to prevent layout shift */}
           </div>
@@ -73,16 +76,19 @@ export function Header() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-3 hover-lift cursor-pointer">
-              <div className="relative w-12 h-12 md:w-14 md:h-14">
+              <div className="relative w-10 h-10 md:w-12 md:h-12">
                 <Image
-                  src="/logo-clean.png"
-                  alt="Collab & Connect Logo"
-                  width={56}
-                  height={56}
+                  src="/logo-cc.png"
+                  alt="CollabConnect Logo"
+                  width={48}
+                  height={48}
                   className="object-contain hover:scale-110 transition-transform duration-300"
                   priority
                 />
               </div>
+              <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                CollabConnect
+              </span>
             </Link>
 
             <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
