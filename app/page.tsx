@@ -59,31 +59,31 @@ export default function HomePage() {
   return (
     <div
       ref={pageRef}
-      className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30 relative overflow-hidden"
+      className="min-h-screen bg-gradient-to-br from-background via-background to-primary/10 relative overflow-hidden"
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="particles"></div>
-        <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-primary/10 rounded-full blur-xl animate-float"></div>
+        <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-primary/20 rounded-full blur-xl animate-float"></div>
         <div
-          className="absolute top-3/4 right-1/4 w-24 h-24 bg-accent/10 rounded-full blur-xl animate-float"
+          className="absolute top-3/4 right-1/4 w-24 h-24 bg-accent/20 rounded-full blur-xl animate-float"
           style={{ animationDelay: "2s" }}
         ></div>
         <div
-          className="absolute bottom-1/4 left-1/3 w-40 h-40 bg-secondary/10 rounded-full blur-xl animate-float"
+          className="absolute bottom-1/4 left-1/3 w-40 h-40 bg-secondary/20 rounded-full blur-xl animate-float"
           style={{ animationDelay: "1s" }}
         ></div>
         <div
-          className="absolute top-1/2 right-1/3 w-28 h-28 bg-primary/8 rounded-full blur-2xl animate-float"
+          className="absolute top-1/2 right-1/3 w-28 h-28 bg-primary/15 rounded-full blur-2xl animate-float"
           style={{ animationDelay: "3s" }}
         ></div>
         <div
-          className="absolute bottom-1/3 right-1/2 w-36 h-36 bg-accent/8 rounded-full blur-2xl animate-float"
+          className="absolute bottom-1/3 right-1/2 w-36 h-36 bg-accent/15 rounded-full blur-2xl animate-float"
           style={{ animationDelay: "4s" }}
         ></div>
 
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/3 via-transparent to-accent/3 animate-pulse"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/5 animate-pulse"></div>
         <div
-          className="absolute inset-0 bg-gradient-to-b from-transparent via-secondary/3 to-transparent animate-pulse"
+          className="absolute inset-0 bg-gradient-to-b from-transparent via-secondary/5 to-transparent animate-pulse"
           style={{ animationDelay: "1s" }}
         ></div>
       </div>

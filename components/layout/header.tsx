@@ -59,7 +59,7 @@ export function Header() {
                 CollabConnect
               </span>
             </Link>
-            <div className="w-32 h-10"></div>
+            <div className="w-32 h-10"></div> {/* Placeholder to prevent layout shift */}
           </div>
         </div>
       </header>
@@ -70,7 +70,7 @@ export function Header() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? "glass-card border-b border-border backdrop-blur-xl" : "bg-transparent"
+          isScrolled ? "glass-card border-b border-white/20 backdrop-blur-xl" : "bg-transparent"
         }`}
       >
         <div className="container mx-auto px-4 py-4">
@@ -94,31 +94,31 @@ export function Header() {
             <nav className="hidden lg:flex items-center space-x-8">
               <Link
                 href="/features"
-                className="text-muted-foreground hover:text-primary transition-all duration-300 font-medium"
+                className="text-foreground/80 hover:text-primary transition-all duration-300 font-medium"
               >
                 Features
               </Link>
               <Link
                 href="/pricing"
-                className="text-muted-foreground hover:text-primary transition-all duration-300 font-medium"
+                className="text-foreground/80 hover:text-primary transition-all duration-300 font-medium"
               >
                 Pricing
               </Link>
               <Link
                 href="/community"
-                className="text-muted-foreground hover:text-primary transition-all duration-300 font-medium"
+                className="text-foreground/80 hover:text-primary transition-all duration-300 font-medium"
               >
                 Community
               </Link>
               <Link
                 href="/blog"
-                className="text-muted-foreground hover:text-primary transition-all duration-300 font-medium"
+                className="text-foreground/80 hover:text-primary transition-all duration-300 font-medium"
               >
                 Blog
               </Link>
               <Link
                 href="/help"
-                className="text-muted-foreground hover:text-primary transition-all duration-300 font-medium"
+                className="text-foreground/80 hover:text-primary transition-all duration-300 font-medium"
               >
                 Help
               </Link>
@@ -129,7 +129,7 @@ export function Header() {
                 <Button
                   variant="ghost"
                   onClick={() => setIsSidebarOpen(true)}
-                  className="flex items-center space-x-2 text-muted-foreground hover:text-primary transition-all duration-300"
+                  className="flex items-center space-x-2 text-foreground/80 hover:text-primary transition-all duration-300"
                 >
                   <div className="w-8 h-8 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center">
                     <User className="h-5 w-5 text-white" />
@@ -141,7 +141,7 @@ export function Header() {
                   <Link href="/login">
                     <Button
                       variant="ghost"
-                      className="text-muted-foreground hover:text-primary transition-all duration-300 font-medium"
+                      className="text-foreground/80 hover:text-primary transition-all duration-300 font-medium"
                     >
                       Sign In
                     </Button>
@@ -171,7 +171,7 @@ export function Header() {
               isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
             }`}
           >
-            <div className="mt-4 pb-4 border-t border-border glass-card backdrop-blur-xl bg-background/95 rounded-lg mx-2 p-4">
+            <div className="mt-4 pb-4 border-t border-white/10 glass-card backdrop-blur-xl bg-background/95 rounded-lg mx-2 p-4">
               <nav className="flex flex-col space-y-4">
                 {[
                   { name: "Features", href: "/features" },
@@ -183,14 +183,14 @@ export function Header() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="text-muted-foreground hover:text-primary transition-all duration-300 hover:translate-x-2 animate-slide-in-left py-2 font-medium"
+                    className="text-foreground/80 hover:text-primary transition-all duration-300 hover:translate-x-2 animate-slide-in-left py-2 font-medium"
                     style={{ animationDelay: `${index * 0.1}s` }}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}
                   </Link>
                 ))}
-                <div className="flex flex-col space-y-2 pt-4 border-t border-border">
+                <div className="flex flex-col space-y-2 pt-4 border-t border-white/10">
                   {isAuthenticated && user ? (
                     <Button
                       variant="ghost"

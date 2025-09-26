@@ -31,10 +31,10 @@ export const metadata: Metadata = {
     apple: [{ url: "/logo.png", sizes: "180x180", type: "image/png" }],
   },
   viewport: "width=device-width, initial-scale=1",
-  themeColor: "#ffffff",
+  themeColor: "#1a1a1a",
   manifest: "/site.webmanifest",
   other: {
-    "msapplication-TileColor": "#ffffff",
+    "msapplication-TileColor": "#1a1a1a",
     "msapplication-config": "/browserconfig.xml",
   },
 }
@@ -45,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${workSans.variable} ${openSans.variable}`}>
+    <html lang="en" className={`dark ${workSans.variable} ${openSans.variable}`}>
       <body className="antialiased font-sans">
         <ErrorBoundary>
           <AuthProvider>{children}</AuthProvider>
