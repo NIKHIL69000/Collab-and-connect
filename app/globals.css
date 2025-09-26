@@ -4,46 +4,46 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(0.12 0 0); /* #1f1f1f dark background */
-  --foreground: oklch(0.98 0 0); /* #ffffff white text */
-  --card: oklch(0.16 0 0 / 0.8); /* Semi-transparent dark cards for glassmorphism */
-  --card-foreground: oklch(0.98 0 0);
-  --popover: oklch(0.16 0 0 / 0.9);
-  --popover-foreground: oklch(0.98 0 0);
-  --primary: oklch(0.55 0.15 280); /* #6b5ce8 vibrant purple */
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.65 0.12 220); /* #3bb8f5 neon blue */
-  --secondary-foreground: oklch(0.98 0 0);
-  --muted: oklch(0.16 0 0); /* #2a2a2a medium gray */
-  --muted-foreground: oklch(0.7 0 0);
-  --accent: oklch(0.65 0.25 340); /* #ff3d7f neon pink */
-  --accent-foreground: oklch(0.98 0 0);
-  --destructive: oklch(0.6 0.2 20); /* Red for destructive actions */
-  --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.3 0 0 / 0.3); /* Semi-transparent borders */
-  --input: oklch(0.16 0 0 / 0.8); /* Dark input backgrounds */
-  --ring: oklch(0.55 0.15 280 / 0.5); /* Primary color focus ring */
-  --chart-1: oklch(0.55 0.15 280); /* Purple */
-  --chart-2: oklch(0.65 0.12 220); /* Blue */
-  --chart-3: oklch(0.65 0.25 340); /* Pink */
+  /* Converting to light theme with white background and professional colors */
+  --background: oklch(1 0 0); /* #ffffff white background */
+  --foreground: oklch(0.11 0 0); /* #1C1C1C dark text for headings */
+  --card: oklch(1 0 0); /* #ffffff white cards */
+  --card-foreground: oklch(0.11 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.11 0 0);
+  --primary: oklch(0.55 0.15 240); /* #4A90E2 professional blue */
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.45 0.12 280); /* #8E44AD purple accent */
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.96 0 0); /* #f5f5f5 very light gray */
+  --muted-foreground: oklch(0.34 0 0); /* #555555 medium gray for body text */
+  --accent: oklch(0.45 0.12 280); /* #8E44AD purple accent */
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.6 0.2 20);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.9 0 0); /* Light gray borders */
+  --input: oklch(1 0 0); /* White input backgrounds */
+  --ring: oklch(0.55 0.15 240 / 0.5); /* Primary color focus ring */
+  --chart-1: oklch(0.55 0.15 240); /* Blue */
+  --chart-2: oklch(0.45 0.12 280); /* Purple */
+  --chart-3: oklch(0.65 0.25 340); /* Pink accent */
   --chart-4: oklch(0.7 0.15 60); /* Yellow accent */
   --chart-5: oklch(0.6 0.2 160); /* Green accent */
-  --radius: 0.75rem; /* Slightly more rounded for modern look */
-  --sidebar: oklch(0.14 0 0); /* Darker sidebar */
-  --sidebar-foreground: oklch(0.98 0 0);
-  --sidebar-primary: oklch(0.55 0.15 280);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.65 0.12 220);
-  --sidebar-accent-foreground: oklch(0.98 0 0);
-  --sidebar-border: oklch(0.3 0 0 / 0.3);
-  --sidebar-ring: oklch(0.55 0.15 280 / 0.5);
-  /* Added font family CSS custom properties for proper font configuration */
+  --radius: 0.75rem;
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.11 0 0);
+  --sidebar-primary: oklch(0.55 0.15 240);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.45 0.12 280);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.9 0 0);
+  --sidebar-ring: oklch(0.55 0.15 240 / 0.5);
   --font-work-sans: var(--font-work-sans);
   --font-open-sans: var(--font-open-sans);
 }
 
 .dark {
-  /* Dark mode uses same values as root for consistent dark theme */
+  /* Keeping dark mode available but defaulting to light */
   --background: oklch(0.12 0 0);
   --foreground: oklch(0.98 0 0);
   --card: oklch(0.16 0 0 / 0.8);
@@ -85,15 +85,76 @@
 
   html {
     scroll-behavior: smooth;
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-background text-foreground;
-    backdrop-filter: blur(10px);
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    /* Removed backdrop-filter for clean light theme */
+    overflow-x: hidden;
     min-height: 100vh;
-    min-height: 100dvh; /* Dynamic viewport height for mobile */
+    min-height: 100dvh;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+  }
+
+  /* Enhanced typography hierarchy for professional SaaS look */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold text-foreground;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5em;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+    line-height: 1.1;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+    line-height: 1.15;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl;
+    line-height: 1.2;
+  }
+
+  h4 {
+    @apply text-xl md:text-2xl;
+  }
+
+  h5 {
+    @apply text-lg md:text-xl;
+  }
+
+  h6 {
+    @apply text-base md:text-lg;
+  }
+
+  p {
+    @apply text-base md:text-lg text-muted-foreground;
+    line-height: 1.7;
+    margin-bottom: 1em;
+  }
+
+  /* Enhanced spacing utilities for consistent professional layout */
+  .section-padding {
+    @apply py-16 md:py-20 lg:py-24;
+  }
+
+  .container-padding {
+    @apply px-4 md:px-6 lg:px-8;
+  }
+
+  .content-spacing {
+    @apply space-y-6 md:space-y-8;
   }
 
   .text-responsive-xs {
@@ -130,32 +191,35 @@
     font-size: clamp(4.5rem, 12vw, 6rem);
   }
 
+  /* Updated glass effects for light theme */
   .glass {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    will-change: transform; /* Optimize for animations */
-  }
-
-  .glass-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     will-change: transform;
   }
 
+  .glass-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    will-change: transform;
+  }
+
+  /* Updated glow effects for light theme with blue/purple colors */
   .neon-glow {
-    box-shadow: 0 0 20px rgba(107, 92, 232, 0.3);
+    box-shadow: 0 0 20px rgba(74, 144, 226, 0.3);
     will-change: box-shadow;
   }
 
   .neon-glow-pink {
-    box-shadow: 0 0 20px rgba(255, 61, 127, 0.3);
+    box-shadow: 0 0 20px rgba(142, 68, 173, 0.3);
     will-change: box-shadow;
   }
 
   .neon-glow-blue {
-    box-shadow: 0 0 20px rgba(59, 184, 245, 0.3);
+    box-shadow: 0 0 20px rgba(74, 144, 226, 0.3);
     will-change: box-shadow;
   }
 
@@ -197,7 +261,7 @@
   }
 
   .btn-hover-glow:hover {
-    box-shadow: 0 0 25px rgba(107, 92, 232, 0.4);
+    box-shadow: 0 0 25px rgba(74, 144, 226, 0.4);
     transform: translateY(-1px);
   }
 
@@ -242,11 +306,12 @@
     pointer-events: none;
   }
 
+  /* Updated particle colors for light theme */
   .particle {
     position: absolute;
     background: linear-gradient(45deg, var(--primary), var(--accent));
     border-radius: 50%;
-    opacity: 0.6;
+    opacity: 0.4;
     animation: float-up linear infinite;
   }
 
@@ -283,10 +348,10 @@
   @keyframes animate-glow-pulse {
     0%,
     100% {
-      box-shadow: 0 0 20px rgba(107, 92, 232, 0.3);
+      box-shadow: 0 0 20px rgba(74, 144, 226, 0.3);
     }
     50% {
-      box-shadow: 0 0 30px rgba(107, 92, 232, 0.6);
+      box-shadow: 0 0 30px rgba(74, 144, 226, 0.6);
     }
   }
 
@@ -349,7 +414,6 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  /* Added font family configuration for Tailwind CSS v4 */
   --font-sans: var(--font-open-sans), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-work-sans), ui-serif, Georgia, serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;

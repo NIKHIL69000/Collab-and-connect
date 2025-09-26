@@ -1,101 +1,110 @@
+import Link from "next/link"
+import Image from "next/image"
+import { Twitter, Linkedin, Instagram, Github } from "lucide-react"
+
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 py-12 px-4">
+    <footer className="border-t border-white/5 py-16 px-4 bg-gradient-to-b from-background to-muted/10">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">CC</span>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+          <div className="md:col-span-1">
+            <Link href="/" className="flex items-center gap-3 mb-4 hover:opacity-80 transition-opacity">
+              <div className="relative w-8 h-8">
+                <Image src="/logo-cc.png" alt="CollabConnect Logo" width={32} height={32} className="object-contain" />
               </div>
-              <span className="text-xl font-serif font-bold bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
+              <span className="text-lg font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 CollabConnect
               </span>
+            </Link>
+            <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+              Connecting influencers and brands for authentic collaborations that drive real results.
+            </p>
+
+            <div className="flex space-x-4">
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                <Twitter className="h-5 w-5" />
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                <Linkedin className="h-5 w-5" />
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                <Instagram className="h-5 w-5" />
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+                <Github className="h-5 w-5" />
+              </a>
             </div>
-            <p className="text-muted-foreground">Connecting influencers and brands for authentic collaborations.</p>
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4 text-foreground">Platform</h3>
-            <ul className="space-y-2 text-muted-foreground">
+            <h3 className="font-semibold mb-4 text-foreground text-sm">Platform</h3>
+            <ul className="space-y-3 text-sm">
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link href="/features" className="text-muted-foreground hover:text-primary transition-colors">
                   Features
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link href="/pricing" className="text-muted-foreground hover:text-primary transition-colors">
                   Pricing
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link href="/api" className="text-muted-foreground hover:text-primary transition-colors">
                   API
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Integrations
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4 text-foreground">Resources</h3>
-            <ul className="space-y-2 text-muted-foreground">
+            <h3 className="font-semibold mb-4 text-foreground text-sm">Resources</h3>
+            <ul className="space-y-3 text-sm">
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link href="/blog" className="text-muted-foreground hover:text-primary transition-colors">
                   Blog
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link href="/help" className="text-muted-foreground hover:text-primary transition-colors">
                   Help Center
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link href="/community" className="text-muted-foreground hover:text-primary transition-colors">
                   Community
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Success Stories
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4 text-foreground">Company</h3>
-            <ul className="space-y-2 text-muted-foreground">
+            <h3 className="font-semibold mb-4 text-foreground text-sm">Company</h3>
+            <ul className="space-y-3 text-sm">
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link href="/about" className="text-muted-foreground hover:text-primary transition-colors">
                   About
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Careers
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link href="/privacy" className="text-muted-foreground hover:text-primary transition-colors">
                   Privacy
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
+                <Link href="/terms" className="text-muted-foreground hover:text-primary transition-colors">
                   Terms
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-white/10 mt-8 pt-8 text-center text-muted-foreground">
-          <p>&copy; 2024 CollabConnect. All rights reserved.</p>
+        <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground/70">
+          <p>&copy; 2025 CollabConnect. All rights reserved.</p>
+          <p className="mt-2 md:mt-0">
+            Powered by <span className="text-primary/80">CollabConnect</span>
+          </p>
         </div>
       </div>
     </footer>
